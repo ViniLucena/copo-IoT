@@ -122,26 +122,6 @@ ESP32 do Copo
 ↓
 LEDs / Alertas visuais
 
-Exemplo de publicação de status:
-
-```json
-{
-  "id_copo": 12,
-  "rfid_copo": "A0 B1 C2 D3",
-  "mesa": 3,
-  "cliente": "Cliente 1",
-  "quantidade_ml": 280,
-  "temperatura": 4.8,
-  "posicionado": true
-}
-
-Exemplo de comando recebido:
-{
-  "evento": "gol",
-  "cor": "verde",
-  "piscar": true
-}
-
 ## 5. Hardware Utilizado
 
 Componentes previstos para o módulo:
@@ -186,23 +166,27 @@ mesa/{id_mesa}/alerta
 
 Exemplo de publicação de status:
 
+```json
 {
-"id_copo": 12,
-"rfid_copo": "A0 B1 C2 D3",
-"mesa": 3,
-"cliente": "Cliente 1",
-"quantidade_ml": 280,
-"temperatura": 4.8,
-"posicionado": true
+  "id_copo": 12,
+  "rfid_copo": "A0 B1 C2 D3",
+  "mesa": 3,
+  "cliente": "Cliente 1",
+  "quantidade_ml": 280,
+  "temperatura": 4.8,
+  "posicionado": true
 }
+```
 
 Exemplo de comando recebido:
 
+```json
 {
-"evento": "gol",
-"cor": "verde",
-"piscar": true
+  "evento": "gol",
+  "cor": "verde",
+  "piscar": true
 }
+```
 
 ## 8. Banco de Dados
 
@@ -210,23 +194,28 @@ O módulo Copo Inteligente se relaciona principalmente com as tabelas de cliente
 
 ### 8.1 Tabela de Clientes
 
+```SQL
 CREATE TABLE clientes (
 id SERIAL PRIMARY KEY,
 nome TEXT NOT NULL,
 rfid_cliente TEXT UNIQUE
 );
+```
 
 ### 8.2 Tabela de Copos
 
+```SQL
 CREATE TABLE copos (
 id SERIAL PRIMARY KEY,
 rfid_copo TEXT UNIQUE NOT NULL,
 mesa_id INTEGER,
 ativo BOOLEAN DEFAULT TRUE
 );
+```
 
 ### 8.3 Tabela de Cadastro Copo-Cliente
 
+```SQL
 CREATE TABLE cadastro_copo_cliente (
 id SERIAL PRIMARY KEY,
 cliente_id INTEGER,
@@ -235,9 +224,11 @@ mesa_id INTEGER,
 inicio TIMESTAMPTZ DEFAULT NOW(),
 fim TIMESTAMPTZ
 );
+```
 
 ### 8.4 Tabela de Leituras do Copo
 
+```SQL
 CREATE TABLE leituras_copo (
 time TIMESTAMPTZ DEFAULT NOW(),
 copo_id INTEGER,
@@ -246,6 +237,7 @@ quantidade_ml REAL,
 temperatura REAL,
 posicionado BOOLEAN
 );
+```
 
 ## 9. Integração com os Outros Módulos
 
@@ -305,6 +297,7 @@ Possíveis gráficos:
 
 Exemplo de consulta para temperatura média:
 
+```SQL
 SELECT
 time_bucket('1 minute', time) AS time,
 AVG(temperatura) AS temperatura_media
@@ -312,9 +305,11 @@ FROM leituras_copo
 WHERE $\_\_timeFilter(time)
 GROUP BY time
 ORDER BY time ASC;
+```
 
 Exemplo de consulta para quantidade média por mesa:
 
+```SQL
 SELECT
 time_bucket('1 minute', time) AS time,
 mesa_id,
@@ -323,6 +318,7 @@ FROM leituras_copo
 WHERE $\_\_timeFilter(time)
 GROUP BY time, mesa_id
 ORDER BY time ASC;
+```
 
 ## 11. Node-RED
 
@@ -442,4 +438,3 @@ Projeto desenvolvido como parte da disciplina de Internet das Coisas.
 
 Módulo: Copo Inteligente
 Sistema geral: Bar Inteligente IoT para Eventos Esportivos
-```
