@@ -104,6 +104,7 @@ A comunicação principal do Copo Inteligente com o sistema é feita via MQTT.
 
 Fluxo simplificado:
 
+```text
 Sensores do copo
 ↓
 ESP32
@@ -113,14 +114,17 @@ Node-RED
 Timescale/PostgreSQL
 ↓
 Grafana
+```
 
 O sistema também pode receber comandos externos:
 
+```text
 Totem / Telegram / Node-RED
 ↓ MQTT
 ESP32 do Copo
 ↓
 LEDs / Alertas visuais
+```
 
 ## 5. Hardware Utilizado
 
@@ -247,6 +251,7 @@ A torneira pode ler o RFID do copo antes de liberar a bebida.
 
 Fluxo esperado:
 
+```text
 RFID do copo lido na torneira
 ↓
 Verificação no backend
@@ -256,6 +261,7 @@ Autorização de abastecimento
 Medição do volume servido
 ↓
 Atualização da conta e do consumo
+```
 
 ### 9.2 Integração com o Totem da Mesa
 
@@ -263,6 +269,7 @@ O totem pode ser usado para cadastrar copos em uma mesa.
 
 Fluxo esperado:
 
+```text
 Copo aproximado do leitor RFID do totem
 ↓
 Totem identifica o copo
@@ -270,6 +277,7 @@ Totem identifica o copo
 Sistema associa copo à mesa
 ↓
 Copo passa a receber alertas daquela mesa
+```
 
 ### 9.3 Integração com o Sistema de Apostas/Pontuação
 
@@ -326,6 +334,7 @@ O Node-RED será responsável por integrar o MQTT com o banco de dados e com os 
 
 Fluxo básico esperado:
 
+```text
 MQTT In
 ↓
 JSON
@@ -335,6 +344,7 @@ Change
 PostgreSQL
 ↓
 Debug
+```
 
 Funções principais:
 
