@@ -349,6 +349,7 @@ Funções principais:
 
 Sugestão de estrutura:
 
+```text
 copo-inteligente/
 ├── firmware/
 │ └── copo_inteligente/
@@ -369,6 +370,7 @@ copo-inteligente/
 │ ├── mqtt.md
 │ └── testes.md
 └── README.md
+```
 
 ## 13. Etapas de Desenvolvimento
 
@@ -438,3 +440,7 @@ Projeto desenvolvido como parte da disciplina de Internet das Coisas.
 
 Módulo: Copo Inteligente
 Sistema geral: Bar Inteligente IoT para Eventos Esportivos
+
+```
+
+```
