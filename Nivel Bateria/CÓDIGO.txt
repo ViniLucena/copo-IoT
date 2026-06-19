@@ -1,0 +1,105 @@
+#include Arduino.h
+#include GFButton.h
+#include WiFi.h
+#include WiFiClientSecure.h
+#include certificados.h
+#include MQTT.h
+#include ArduinoJson.h
+
+int i = 1;
+
+WiFiClientSecure conexaoSegura;
+unsigned long instanteAnterior = 0;
+MQTTClient mqtt(1000);
+JsonDocument nivel;
+String textoNivel;
+const int pinoBateria = 1;
+
+void reconectarWiFi()
+{
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    WiFi.begin(LabIoT, 4n1m4l5@))!!);
+    Serial.print(Conectando ao WiFi...);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      Serial.printf(Status %dn, WiFi.status());
+      Serial.print(.);
+      delay(1000);
+    }
+    Serial.print(conectado!nEndereço IP );
+    Serial.println(WiFi.localIP());
+  }
+}
+
+void reconectarMQTT()
+{
+  if (!mqtt.connected())
+  {
+    Serial.print(Conectando MQTT...);
+    while (!mqtt.connected())
+    {
+      mqtt.connect(Copo, aula, zowmad-tavQez);
+      Serial.print(.);
+      delay(1000);
+    }
+    Serial.println( conectado!);
+
+    mqtt.subscribe(nivel_bat);  qos = 0
+     mqtt.subscribe(topico2+parametro, 1);  qos = 1
+  }
+}
+
+void setup()
+{
+  Serial.println(==================== Envio Nível de Bateria ====================);
+  Serial.begin(115200);
+  delay(500);
+
+   pinMode(buz, OUTPUT);
+  reconectarWiFi();
+  conexaoSegura.setCACert(certificado1);
+  mqtt.begin(mqtt.janks.dev.br, 8883, conexaoSegura);
+  mqtt.setKeepAlive(10);
+  mqtt.setWill(tópico da desconexão, conteúdo);
+
+  reconectarMQTT();
+
+  analogSetAttenuation(ADC_11db);
+}
+
+void loop()
+{
+  reconectarWiFi();
+  reconectarMQTT();
+  mqtt.loop();
+
+  unsigned long instanteAtual = millis();
+  if (instanteAtual  instanteAnterior + 5000)
+  {
+     Serial.println(i);
+     i++;
+
+    int leituraBruta = analogRead(pinoBateria);
+    Serial.println(leituraBruta);
+
+    float tensaoNoPino = (leituraBruta  3.3)  4095.0;
+    Serial.println(tensaoNoPino);
+
+    float tensaoBateria = (tensaoNoPino(1286.4))988; Divisor de Tensão
+    Serial.println(tensaoBateria);
+ 
+    int bateria_porcento = map(constrain(tensaoBateria  100, 270, 420), 270, 420, 0, 100);     Converte a tensão calculada para uma percentagem de 0 a 100% considerando uma bateria típica de Li-Ion (4.2V cheia e 3.5V vazia)
+    Serial.println(bateria_porcento);
+
+
+
+    
+
+    nivel[valor] = bateria_porcento;
+    serializeJson(nivel, textoNivel);
+    Serial.println(textoNivel);
+    mqtt.publish(nivel_bat, textoNivel);
+    instanteAnterior = instanteAtual;
+  }
+}
