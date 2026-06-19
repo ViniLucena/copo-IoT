@@ -199,34 +199,36 @@ O módulo Copo Inteligente se relaciona principalmente com as tabelas de cliente
 ### 8.1 Tabela de Clientes
 
 ```SQL
-CREATE TABLE clientes (
-id SERIAL PRIMARY KEY,
-nome TEXT NOT NULL,
-rfid_cliente TEXT UNIQUE
+  CREATE TABLE clientes (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  rfid_cliente TEXT UNIQUE,
+  chat_id BigInt,
+  time_escolhido Text
 );
 ```
 
 ### 8.2 Tabela de Copos
 
 ```SQL
-CREATE TABLE copos (
-id SERIAL PRIMARY KEY,
-rfid_copo TEXT UNIQUE NOT NULL,
-mesa_id INTEGER,
-ativo BOOLEAN DEFAULT TRUE
+  CREATE TABLE copos (
+  id SERIAL PRIMARY KEY,
+  rfid_copo TEXT UNIQUE NOT NULL,
+  mesa_id INTEGER,
+  ativo BOOLEAN DEFAULT TRUE
 );
 ```
 
 ### 8.3 Tabela de Cadastro Copo-Cliente
 
 ```SQL
-CREATE TABLE cadastro_copo_cliente (
-id SERIAL PRIMARY KEY,
-cliente_id INTEGER,
-copo_id INTEGER,
-mesa_id INTEGER,
-inicio TIMESTAMPTZ DEFAULT NOW(),
-fim TIMESTAMPTZ
+  CREATE TABLE cadastro_copo_cliente (
+  id SERIAL PRIMARY KEY,
+  cliente_id INTEGER,
+  copo_id INTEGER,
+  mesa_id INTEGER,
+  inicio TIMESTAMPTZ DEFAULT NOW(),
+  fim TIMESTAMPTZ
 );
 ```
 
@@ -234,12 +236,41 @@ fim TIMESTAMPTZ
 
 ```SQL
 CREATE TABLE leituras_copo (
-time TIMESTAMPTZ DEFAULT NOW(),
-copo_id INTEGER,
-mesa_id INTEGER,
-quantidade_ml REAL,
-temperatura REAL,
-posicionado BOOLEAN
+  time TIMESTAMPTZ DEFAULT NOW(),
+  copo_id INTEGER,
+  mesa_id INTEGER,
+  quantidade_ml REAL,
+  temperatura REAL,
+  posicionado BOOLEAN
+);
+```
+
+### 8.5 Tabela de Times
+
+```SQL
+CREATE TABLE times (
+  id_time SERIAL PRIMARY KEY,
+  nome_time VARCHAR(100) NOT NULL UNIQUE
+);
+```
+
+### 8.6 Tabela de Partidas
+
+```SQL
+CREATE TABLE partidas (
+  id_jogo PRIMARY KEY,
+  time_1 INT NOT NULL,
+  time_2 INT NOT NULL,
+  data_inicio TIMESTAMPTZ NOT NULL,
+  data_fim TIMESTAMPTZ, --pode ser nulo caso o jogo esteja rolando
+
+  -- restrições de integridade
+  CONSTRAINT fk_time_1 FOREIGN KEY (time_1) REFERENCES times(id_time),
+  CONSTRAINT fk_time_2 FOREIGN KEY (time_2) REFERENCES times(id_time),
+  CONSTRAINT chk_times_diferentes CHECK (time_1 <> time_2),
+
+  -- índice para facilitar buscas por data (útil para o Bot saber qual jogo está ativo)
+  INDEX idx_partidas_data (data_inicio)
 );
 ```
 
