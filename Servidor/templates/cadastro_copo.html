@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Copos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            
+            background-image: url('/static/fundo.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .card {
+            display: inline-block;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #6a1b9a;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #4a148c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Cadastrar Copo</h2>
+        <form action="/cadastrar_copo" method="POST">
+            <input type="text" name="id_copo" placeholder="ID do Copo (ex: 007)" required>
+            <input type="text" name="rfid_copo" placeholder="RFID do Copo" required>
+            <button type="submit">Adicionar Copo</button>
+        </form>
+        <br>
+        <a href="/">Voltar ao Início</a>
+    </div>
+
+</body>
+</html>

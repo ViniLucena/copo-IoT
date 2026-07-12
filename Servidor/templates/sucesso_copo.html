@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bar Smart - Erro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            
+            background-image: url('/static/fundo.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            border-top: 5px solid #28a745;
+        }
+
+        h2 {
+            color: #28a745;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #6a1b9a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn:hover {
+            background: #4a148c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Sucesso!</h2>
+        <p>O copo foi cadastrado no estoque e já está disponível para uso.</p>
+        <a href="/" class="btn">Voltar ao Menu Principal</a>
+        <a href="/form_copo" style="display:block; margin-top:15px; color:#6a1b9a; text-decoration:none;">Cadastrar outro copo</a>
+    </div>
+</body>
+
+</html>

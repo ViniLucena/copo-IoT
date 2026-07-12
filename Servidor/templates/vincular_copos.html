@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vincular Copos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+
+            background-image: url('/static/fundo.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .info-cliente {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn-associar {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-associar:hover {
+            background-color: #45a049;
+        }
+
+        .btn-voltar {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-voltar:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+        alert("{{ messages[0] }}");
+    </script>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h2>Vincular Copo</h2>
+
+        <div class="info-cliente">
+            <p>Você está adicionando copos para o<br><strong>Cliente: {{ nome_cliente }}</strong></p>
+        </div>
+
+        <form action="/processar_vinculo" method="POST">
+            <input type="hidden" name="id_cliente" value="{{ id_cliente }}">
+
+            <div class="form-group">
+                <label for="id_copo">Número do Copo:</label>
+                <input type="text" id="id_copo" name="id_copo" required autofocus autocomplete="off"
+                    placeholder="Ex: 14">
+            </div>
+
+            <button type="submit" class="btn-associar">Associar Copo</button>
+        </form>
+
+        <a href="/clientes" style="text-decoration: none;">
+            <button type="button" class="btn-voltar">Finalizar e Voltar</button>
+        </a>
+    </div>
+
+</body>
+
+</html>

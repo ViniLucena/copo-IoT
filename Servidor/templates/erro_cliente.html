@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Smart - Erro</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+
+            background-image: url('/static/fundo.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            box-sizing: border-box;
+        }
+
+        .circle-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #fdeaea;
+            color: #e74c3c;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 20px auto;
+            line-height: 70px;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 22px;
+        }
+
+        p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="circle-icon">✖</div>
+        <h2>Erro no Cadastro</h2>
+        <p>Este copo já está vinculado a um cliente ativo. Recolha o copo e dê baixa no sistema antes de reutilizá-lo.
+        </p>
+        <a href="/" class="btn">Tentar Novamente</a>
+    </div>
+</body>
+
+</html>

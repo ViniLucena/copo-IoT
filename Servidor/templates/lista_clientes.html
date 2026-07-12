@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Clientes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+
+      background-image: url('/static/fundo.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 900px;
+    }
+
+    h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .form-busca {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .form-busca input[type="text"] {
+      flex-grow: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn-pesquisar,
+    .btn-limpar {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-pesquisar {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .btn-pesquisar:hover {
+      background-color: #0b7dda;
+    }
+
+    .btn-limpar {
+      background-color: #e9ecef;
+      color: #333;
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-limpar:hover {
+      background-color: #d3d6d8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th,
+    td {
+      padding: 15px 10px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+      color: #555;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .btn-acao {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .btn-acao:hover {
+      background-color: #45a049;
+    }
+
+    .btn-voltar {
+      background-color: #607d8b;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      width: 100%;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+
+    .btn-voltar:hover {
+      background-color: #546e7a;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Buscar Cliente</h2>
+
+    <form action="/clientes" method="GET" class="form-busca">
+      <input type="text" name="q" placeholder="Digite o nome ou email..." value="{{ busca_atual }}" autofocus
+        autocomplete="off">
+      <button type="submit" class="btn-pesquisar">Pesquisar</button>
+      <a href="/clientes" class="btn-limpar">Limpar</a>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome do Cliente</th>
+          <th>Email</th>
+          <th>Copos Ativos (IDs)</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in clientes %}
+        <tr>
+          <td>{{ cliente[0] }}</td>
+          <td>{{ cliente[1] }}</td>
+          <td>{{ cliente[2] }}</td>
+          <td><strong>{{ cliente[3] }}</strong></td>
+          <td>
+            <a href="/vincular_copos?id_cliente={{ cliente[0] }}">
+              <button type="button" class="btn-acao">
+                Vincular Copo
+              </button>
+            </a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 30px; color: #777;">
+            Nenhum cliente encontrado. Tente buscar por outro nome ou email.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="/" style="text-decoration: none;">
+      <button type="button" class="btn-voltar">Voltar para o Início</button>
+    </a>
+  </div>
+
+</body>
+
+</html>

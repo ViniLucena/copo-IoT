@@ -1,0 +1,264 @@
+[
+    {
+        "id": "1f0abbea48f043b0",
+        "type": "tab",
+        "label": "Fluxo 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d31a813eeac20db4",
+        "type": "mqtt in",
+        "z": "1f0abbea48f043b0",
+        "name": "",
+        "topic": "nivel_bat",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fa7923ade7c363e8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 260,
+        "wires": [
+            [
+                "0c4e022dcb3b4626",
+                "e2ae3620e4da0c72"
+            ]
+        ]
+    },
+    {
+        "id": "7c088212384c7fdb",
+        "type": "postgresql",
+        "z": "1f0abbea48f043b0",
+        "name": "",
+        "query": "UPDATE public.copos \nSET nivel_bateria = $valor \nWHERE id = (SELECT id FROM public.copos WHERE id_copo = $id_copo LIMIT 1);",
+        "postgreSQLConfig": "1251550e75985b59",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 670,
+        "y": 260,
+        "wires": [
+            [
+                "d1dc7923819fa910"
+            ]
+        ]
+    },
+    {
+        "id": "e2ae3620e4da0c72",
+        "type": "change",
+        "z": "1f0abbea48f043b0",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "queryParameters",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "7c088212384c7fdb",
+                "e1e3342a6c2f8d67"
+            ]
+        ]
+    },
+    {
+        "id": "0c4e022dcb3b4626",
+        "type": "debug",
+        "z": "1f0abbea48f043b0",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e1e3342a6c2f8d67",
+        "type": "debug",
+        "z": "1f0abbea48f043b0",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d1dc7923819fa910",
+        "type": "debug",
+        "z": "1f0abbea48f043b0",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "fcabf757c9ebf0bf",
+        "type": "postgresql",
+        "z": "1f0abbea48f043b0",
+        "name": "",
+        "query": "DELETE FROM copos WHERE nivel_bateria = '0';",
+        "postgreSQLConfig": "1251550e75985b59",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 670,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce29637f810224f9",
+        "type": "inject",
+        "z": "1f0abbea48f043b0",
+        "name": "APAGA ZEROS",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 480,
+        "y": 340,
+        "wires": [
+            [
+                "fcabf757c9ebf0bf"
+            ]
+        ]
+    },
+    {
+        "id": "fd166fb1ca9e6fa2",
+        "type": "postgresql",
+        "z": "1f0abbea48f043b0",
+        "name": "",
+        "query": "DELETE FROM copos",
+        "postgreSQLConfig": "1251550e75985b59",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 670,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33bfaf39631ebb68",
+        "type": "inject",
+        "z": "1f0abbea48f043b0",
+        "name": "APAGA TUDO",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "fd166fb1ca9e6fa2"
+            ]
+        ]
+    },
+    {
+        "id": "fa7923ade7c363e8",
+        "type": "mqtt-broker",
+        "name": "MQTT",
+        "broker": "mqtt.janks.dev.br",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1251550e75985b59",
+        "type": "postgreSQLConfig",
+        "name": "PostgreSQL",
+        "host": "postgresql.janks.dev.br",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "projeto_b",
+        "databaseFieldType": "str",
+        "ssl": "true",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "iot",
+        "userFieldType": "str",
+        "password": "pepcon-garton",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "4a35f2eacdee9147",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-postgresql": "0.15.4"
+        }
+    }
+]

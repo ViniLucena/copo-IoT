@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hub de Cadastro</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+
+            background-image: url('/static/fundo.png');
+            background-position: center;
+            background-attachment: fixed;
+
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .btn {
+            display: block;
+            width: 250px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #6a1b9a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #4a148c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Sistema Bar Smart</h1>
+        <p>Selecione a operação:</p>
+        <a href="/form_cliente" class="btn">Cadastrar Cliente</a>
+        <a href="/form_copo" class="btn">Cadastrar Copo</a>
+        <a href="/listagem" class="btn">Listagem de Copos</a>
+        <a href="/clientes" class="btn">Listagem de Clientes</a>
+    </div>
+</body>
+
+</html>

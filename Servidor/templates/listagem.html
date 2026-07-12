@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Listagem de Copos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+
+      background-image: url('/static/fundo.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #6a1b9a;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #ccc;
+      color: #333;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .btn-voltar:hover {
+      background: #bbb;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>Visão Geral dos Copos</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID do Copo</th>
+          <th>Status</th>
+          <th>Cliente</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for copo in copos %}
+        <tr>
+          <td>{{ copo[0] }}</td>
+          <td>
+            {% if copo[1] == 'disponivel' %}
+            <span style="color: green; font-weight: bold;">🟢 Disponível</span>
+            {% else %}
+            <span style="color: red; font-weight: bold;">🔴 Em Uso</span>
+            {% endif %}
+          </td>
+          <td>{{ copo[3] if copo[3] else '-' }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="3">Nenhum copo cadastrado no sistema.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <a href="/" class="btn-voltar">Voltar ao Início</a>
+</body>
+
+</html>
