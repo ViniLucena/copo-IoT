@@ -131,7 +131,7 @@ A integração com o backend é feita usando:
 - Grafana para visualização;
 - servidor e bot Telegram para integração com o restante do sistema.
 
-O repositório inclui os fluxos Node-RED, queries, dashboards Grafana e demais arquivos necessários para reproduzir a integração.
+O repositório inclui os fluxos Node-RED, as queries do Grafana e demais arquivos necessários para reproduzir a integração.
 
 Entre os dados exibidos no Grafana estão:
 
@@ -168,7 +168,7 @@ O repositório contém arquivos relacionados a:
 - firmware do copo;
 - códigos de sensores, LEDs, bateria e MQTT;
 - fluxos Node-RED;
-- dashboards Grafana;
+- queries do Grafana;
 - arquivos de PCB e esquemáticos;
 - peças STL da case;
 - servidor;
