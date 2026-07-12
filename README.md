@@ -10,7 +10,9 @@ O projeto integra hardware embarcado, firmware para ESP32, comunicação MQTT, f
 
 O **Copo Inteligente** é um módulo acoplado a um copo térmico de 600 mL. Ele mede informações relacionadas ao estado do copo, envia os dados ao sistema central e reage visualmente a eventos do sistema, como gols durante partidas.
 
-O módulo faz parte de um sistema maior de **Bar Inteligente para Eventos Esportivos**, no qual diferentes dispositivos e serviços se comunicam para registrar consumo, associar copos e clientes, exibir dashboards e gerar alertas.
+O módulo faz parte de um sistema maior de **Bar Inteligente para Eventos Esportivos**, no qual diferentes dispositivos e serviços se comunicam para registrar consumo, exibir dashboards e gerar alertas.
+
+A parte de identificação por RFID pertence aos outros módulos/grupos do sistema e não faz parte do firmware deste módulo do copo.
 
 ---
 
@@ -27,7 +29,6 @@ A versão atual do módulo possui as seguintes funcionalidades:
 - visualização de dados em Grafana;
 - recepção de alertas MQTT;
 - animação de LEDs RGB para eventos de gol;
-- integração com RFID dentro do sistema;
 - estrutura física impressa em 3D para acomodar PCB, sensores e bateria.
 
 ---
@@ -44,10 +45,11 @@ O protótipo utiliza:
 - bateria 18650;
 - suporte para bateria 18650;
 - PCB própria;
-- módulo/chip RFID;
 - case impressa em 3D.
 
 O sensor de peso com célula de carga/HX711 foi considerado durante o desenvolvimento, mas não foi incluído na versão final do módulo.
+
+A leitura RFID não é realizada pelo copo; essa função pertence aos outros módulos do sistema.
 
 ---
 
@@ -131,7 +133,7 @@ A integração com o backend é feita usando:
 - Grafana para visualização;
 - servidor e bot Telegram para integração com o restante do sistema.
 
-O repositório inclui os fluxos Node-RED, as queries do Grafana e demais arquivos necessários para reproduzir a integração.
+O repositório inclui os fluxos Node-RED, queries, dashboards Grafana e demais arquivos necessários para reproduzir a integração.
 
 Entre os dados exibidos no Grafana estão:
 
@@ -154,10 +156,7 @@ A case acomoda:
 - passagem de fios até o topo do copo;
 - sensor ToF;
 - sensor de temperatura;
-- RFID;
 - LEDs e conexões auxiliares.
-
-Como o copo é metálico, o RFID deve ficar posicionado na parte externa da case, afastado da parede de inox, para reduzir interferência na leitura.
 
 ---
 
@@ -168,7 +167,7 @@ O repositório contém arquivos relacionados a:
 - firmware do copo;
 - códigos de sensores, LEDs, bateria e MQTT;
 - fluxos Node-RED;
-- queries do Grafana;
+- dashboards Grafana;
 - arquivos de PCB e esquemáticos;
 - peças STL da case;
 - servidor;
