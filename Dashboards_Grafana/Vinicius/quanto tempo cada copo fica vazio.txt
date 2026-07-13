@@ -1,0 +1,20 @@
+SELECT
+    CONCAT(cl.nome_completo, ' (Copo ', c.id, ')') AS cliente,
+    ROUND(
+        EXTRACT(EPOCH FROM (NOW() - c.vazio_a)) / 60,
+        1
+    ) AS minutos_vazio
+FROM copos c
+
+JOIN vinculo_copo_cliente vcc
+    ON c.id = vcc.id_copo
+
+JOIN clientes cl
+    ON vcc.id_cliente = cl.id
+
+WHERE c.mesa = 1
+  AND c.quantidade_ml = 0
+  AND c.vazio_a IS NOT NULL
+  AND vcc.ativo = true
+
+ORDER BY minutos_vazio DESC;

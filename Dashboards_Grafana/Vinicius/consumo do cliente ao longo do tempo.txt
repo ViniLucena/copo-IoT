@@ -1,0 +1,9 @@
+SELECT
+ time_bucket('60 seconds', data) AS time,
+ AVG(hc.quantidade_ml) AS media_volume,
+ AVG(hc.temperatura_c) AS media_temperatura
+FROM copos
+INNER JOIN historico_copo hc ON hc.id_copo = copos.id_copo
+WHERE mesa = 1 AND data > NOW() - INTERVAL '1 day'
+GROUP BY time
+ORDER BY time ASC

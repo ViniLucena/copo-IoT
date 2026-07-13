@@ -1,0 +1,5 @@
+SELECT
+    COALESCE(AVG(temperatura_c), 0) AS "Temperatura Média da Mesa"
+FROM copos
+WHERE mesa = 1
+  AND temperatura_c IS NOT NULL;
